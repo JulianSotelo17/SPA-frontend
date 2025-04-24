@@ -1,0 +1,191 @@
+<div class="group-service-detail-page" *ngIf="service.id">
+  <!-- Encabezado del servicio -->
+  <section class="header-section py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1 class="display-5 fw-light mb-3">{{ service.name }}</h1>
+          <p class="lead text-muted">{{ service.description }}</p>
+          <div class="d-flex align-items-center mb-3">
+            <span class="badge rounded-pill text-bg-primary me-2">Capacidad: {{ service.capacity }}</span>
+            <span class="fw-semibold text-primary ms-2">{{ service.price }}</span>
+          </div>
+        </div>
+        <div class="col-lg-6 mt-4 mt-lg-0">
+          <!-- Imagen del servicio -->
+          <div class="service-image-wrapper">
+            <img [src]="service.image" [alt]="service.name" class="img-fluid rounded-4 shadow-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beneficios y detalles -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2 class="h3 fw-light mb-4">Beneficios</h2>
+          <ul class="benefits-list">
+            <li *ngFor="let benefit of service.benefits" class="mb-3">
+              <div class="d-flex">
+                <i class="bi bi-check-circle-fill text-primary me-2 mt-1"></i>
+                <span>{{ benefit }}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-6 mt-4 mt-lg-0">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body p-4">
+              <h3 class="h4 fw-light mb-3">Detalles del servicio</h3>
+              <div class="mb-3">
+                <div class="d-flex mb-2">
+                  <i class="bi bi-people text-primary me-2"></i>
+                  <p class="mb-0"><strong>Capacidad:</strong> {{ service.capacity }}</p>
+                </div>
+                <div class="d-flex mb-2">
+                  <i class="bi bi-tag text-primary me-2"></i>
+                  <p class="mb-0"><strong>Precio:</strong> {{ service.price }}</p>
+                </div>
+              </div>
+              <p class="text-muted">Nuestros instructores están altamente capacitados para brindarte la mejor experiencia en {{ service.name }}.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Horarios -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 mb-4 text-center">
+          <h2 class="h3 fw-light">Horarios disponibles</h2>
+          <p class="text-muted">Consulta nuestros horarios fijos para {{ service.name }}</p>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="schedule-wrapper">
+            <!-- Tabs de días -->
+            <ul class="nav nav-tabs" id="scheduleTab" role="tablist">
+              <li class="nav-item" role="presentation" *ngFor="let day of getUniqueWeekdays(); let i = index">
+                <button 
+                  class="nav-link" 
+                  [class.active]="i === 0" 
+                  [id]="'tab-' + day"
+                  data-bs-toggle="tab" 
+                  [attr.data-bs-target]="'#content-' + day" 
+                  type="button" 
+                  role="tab" 
+                  [attr.aria-controls]="'content-' + day"
+                  [attr.aria-selected]="i === 0">
+                  {{ day }}
+                </button>
+              </li>
+            </ul>
+            
+            <!-- Contenido de las tabs -->
+            <div class="tab-content p-0" id="scheduleTabContent">
+              <div 
+                class="tab-pane fade" 
+                *ngFor="let day of getUniqueWeekdays(); let i = index"
+                [class.show]="i === 0"
+                [class.active]="i === 0"
+                [id]="'content-' + day" 
+                role="tabpanel" 
+                [attr.aria-labelledby]="'tab-' + day">
+                
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body p-0">
+                    <div class="table-responsive">
+                      <table class="table table-hover schedule-table mb-0">
+                        <thead>
+                          <tr>
+                            <th>Horario</th>
+                            <th>Instructor</th>
+                            <th>Duración</th>
+                            <th>Nivel</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let schedule of getSchedulesByDay(day)">
+                            <td>{{ schedule.time }}</td>
+                            <td>{{ schedule.instructor }}</td>
+                            <td>{{ schedule.duration }}</td>
+                            <td>
+                              <span 
+                                class="badge" 
+                                [ngClass]="{
+                                  'text-bg-success': schedule.level === 'Principiante',
+                                  'text-bg-warning': schedule.level === 'Intermedio',
+                                  'text-bg-danger': schedule.level === 'Avanzado',
+                                  'text-bg-info': schedule.level === 'Todos los niveles'
+                                }">
+                                {{ schedule.level }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card mt-4">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-info-circle text-primary me-3 fs-3"></i>
+                  <div>
+                    <h4 class="h5 fw-light">Información importante</h4>
+                    <p class="mb-0 text-muted">Las clases están sujetas a disponibilidad. Te recomendamos llegar 10 minutos antes del inicio. Para más información contacta a nuestro equipo.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="h3 fw-light mb-3">¿Listo para empezar?</h2>
+          <p class="lead text-muted mb-4">Prueba una sesión de {{ service.name }} y descubre todos sus beneficios.</p>
+          <div class="d-flex gap-3 justify-content-center">
+            <a href="tel:+56912345678" class="btn btn-primary px-4">
+              <i class="bi bi-telephone me-2"></i> Contactar
+            </a>
+            <a href="mailto:info@relaxspa.com" class="btn btn-outline-primary px-4">
+              <i class="bi bi-envelope me-2"></i> Email
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Mensaje si no se encuentra el servicio -->
+<div class="container py-5" *ngIf="!service.id">
+  <div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+      <i class="bi bi-exclamation-circle display-1 text-muted mb-3"></i>
+      <h2 class="fw-light mb-3">Servicio no encontrado</h2>
+      <p class="lead mb-4">Lo sentimos, el servicio que estás buscando no existe o ha sido eliminado.</p>
+      <a routerLink="/services" class="btn btn-primary">Ver todos los servicios</a>
+    </div>
+  </div>
+</div>

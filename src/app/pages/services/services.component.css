@@ -1,0 +1,46 @@
+.services-page .header-section {
+  background-color: #f8f9fa;
+  background-image: linear-gradient(to bottom right, #f8f9fa, #e9f1fb);
+}
+
+.display-5 {
+  font-weight: 300;
+}
+
+.text-primary {
+  color: #6495ED !important;
+}
+
+.icon-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: rgba(100, 149, 237, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  color: #6495ED;
+  font-size: 24px;
+}
+
+.promo-card {
+  background-color: #f8f9fa;
+  background-image: linear-gradient(135deg, #f8f9fa, #e9f1fb);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.promo-card:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline-primary {
+  border-color: #6495ED;
+  color: #6495ED;
+}
+
+.btn-outline-primary:hover {
+  background-color: #6495ED;
+  border-color: #6495ED;
+}

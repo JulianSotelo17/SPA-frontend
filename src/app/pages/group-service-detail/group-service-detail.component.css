@@ -1,0 +1,96 @@
+.group-service-detail-page .header-section {
+  background-color: #ffffff;
+}
+
+.display-5 {
+  font-weight: 300;
+}
+
+.text-primary {
+  color: #6495ED !important;
+}
+
+.service-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.8rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.service-image-wrapper img {
+  transition: transform 0.5s ease;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.service-image-wrapper:hover img {
+  transform: scale(1.03);
+}
+
+.benefits-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.benefits-list i {
+  color: #6495ED;
+}
+
+.schedule-wrapper {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.nav-tabs {
+  border-bottom: none;
+  background-color: #f8f9fa;
+}
+
+.nav-tabs .nav-link {
+  border: none;
+  border-radius: 0;
+  color: #555;
+  font-weight: 500;
+  padding: 1rem 1.5rem;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #fff;
+  color: #6495ED;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.03);
+  border-bottom: 2px solid #6495ED;
+}
+
+.schedule-table th {
+  background-color: #f8f9fa;
+  color: #555;
+  font-weight: 500;
+  padding: 1rem;
+}
+
+.schedule-table td {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.schedule-table tr:hover {
+  background-color: rgba(100, 149, 237, 0.05);
+}
+
+.badge.text-bg-success {
+  background-color: #28a745 !important;
+}
+
+.badge.text-bg-warning {
+  background-color: #ffc107 !important;
+}
+
+.badge.text-bg-danger {
+  background-color: #dc3545 !important;
+}
+
+.badge.text-bg-info {
+  background-color: #17a2b8 !important;
+}

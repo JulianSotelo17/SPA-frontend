@@ -1,0 +1,80 @@
+<div class="services-page">
+  <!-- Header Section -->
+  <section class="header-section py-5 bg-light">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <h1 class="display-5 fw-light mb-3">Nuestros <span class="text-primary">Servicios</span></h1>
+          <p class="lead text-muted">Descubre nuestra amplia gama de servicios de relajación y bienestar diseñados para renovar tu cuerpo y mente.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Individual Services Section -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="h3 fw-light mb-4">Servicios Individuales</h2>
+      <div class="row g-4">
+        <div class="col-md-6" *ngFor="let service of individualServices; let i = index">
+          <app-service-card 
+            [title]="service.title" 
+            [icon]="service.icon" 
+            [services]="service.services"
+            [bgColor]="service.bgColor"
+            [categoryId]="service.id"
+            [expanded]="i === 0">
+          </app-service-card>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Group Services Section -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="h3 fw-light mb-4">Servicios Grupales</h2>
+      <div class="row g-4">
+        <div class="col-md-6" *ngFor="let service of groupServices">
+          <app-service-card 
+            [title]="service.title" 
+            [icon]="service.icon" 
+            [services]="service.services"
+            [bgColor]="service.bgColor"
+            [isGroupService]="true"
+            [expanded]="true">
+          </app-service-card>
+        </div>
+        <div class="col-md-6">
+          <div class="card border-0 shadow-sm h-100 bg-white">
+            <div class="card-body p-4 d-flex flex-column justify-content-center">
+              <div class="text-center">
+                <div class="icon-wrapper mx-auto mb-3">
+                  <i class="bi bi-calendar-check"></i>
+                </div>
+                <h3 class="h4 fw-light mb-3">¿Listo para empezar?</h3>
+                <p class="text-muted mb-4">Agenda tu cita hoy mismo y comienza a disfrutar de nuestros servicios de bienestar.</p>
+                <a routerLink="/appointments" class="btn btn-primary px-4">Agendar cita</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="promo-card p-4 p-lg-5 rounded-4 text-center">
+            <h2 class="fw-light mb-3">Paquetes promocionales</h2>
+            <p class="lead text-muted mb-4">Consulta por nuestros paquetes y promociones especiales combinando diferentes servicios.</p>
+            <a href="#" class="btn btn-outline-primary btn-lg">Ver promociones</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

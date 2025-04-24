@@ -1,0 +1,81 @@
+.service-detail-page .header-section {
+  background-color: #ffffff;
+}
+
+.display-5 {
+  font-weight: 300;
+}
+
+.text-primary {
+  color: #6495ED !important;
+}
+
+.service-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.8rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.service-image-wrapper img {
+  transition: transform 0.5s ease;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.service-image-wrapper:hover img {
+  transform: scale(1.03);
+}
+
+.benefits-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.benefits-list i {
+  color: #6495ED;
+}
+
+.time-slots .btn {
+  padding: 0.5rem 0;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.time-slots .btn:hover:not([disabled]) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.time-slots .btn-primary {
+  background-color: #6495ED;
+  border-color: #6495ED;
+}
+
+.time-slots .btn-outline-primary {
+  color: #6495ED;
+  border-color: #6495ED;
+}
+
+.time-slots .btn-outline-primary:hover {
+  background-color: #6495ED;
+  color: white;
+}
+
+.time-slots .btn-outline-secondary {
+  color: #aaa;
+  border-color: #ddd;
+}
+
+.success-icon i {
+  font-size: 4rem;
+  color: #28a745;
+}
+
+.date-picker-placeholder {
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #eee;
+}

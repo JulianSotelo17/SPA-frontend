@@ -1,0 +1,46 @@
+.container-fluid {
+  background-color: #f8f9fa;
+  background-image: linear-gradient(to bottom right, #f8f9fa, #e9f1fb);
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.95);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.form-control:focus {
+  border-color: #a8c7fa;
+  box-shadow: 0 0 0 0.25rem rgba(168, 199, 250, 0.25);
+}
+
+.btn-primary {
+  background-color: #6495ED;
+  border-color: #6495ED;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #5a86d6;
+  border-color: #5a86d6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(90, 134, 214, 0.2);
+}
+
+.text-primary {
+  color: #6495ED !important;
+}
+
+a {
+  color: #6495ED;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: #5a86d6;
+  text-decoration: underline !important;
+}

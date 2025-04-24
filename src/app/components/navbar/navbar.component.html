@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+    <!-- Logo y título en la izquierda -->
+    <a class="navbar-brand d-flex align-items-center" routerLink="/home">
+      <i class="bi bi-calendar-check text-primary me-2"></i>
+      <span class="fw-semibold">RelaxSPA</span>
+    </a>
+    
+    <!-- Botón de hamburguesa para móviles -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <!-- Links de navegación -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/services" routerLinkActive="active">Servicios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/appointments" routerLinkActive="active">Mis Citas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contacto</a>
+        </li>
+      </ul>
+      
+      <!-- Botones de usuario -->
+      <div class="d-flex align-items-center ms-lg-3">
+        <a class="btn btn-outline-primary me-2" routerLink="/login">Iniciar Sesión</a>
+        <a class="btn btn-primary" routerLink="/register">Registrarse</a>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,34 @@
+<div class="service-card card border-0 shadow-sm h-100 mb-4" [ngClass]="bgColor">
+  <div class="card-body p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="d-flex align-items-center">
+        <div class="icon-wrapper me-3">
+          <i class="bi {{ icon }}"></i>
+        </div>
+        <h3 class="card-title h4 fw-light mb-0">{{ title }}</h3>
+      </div>
+      <button class="btn btn-sm btn-link text-primary" (click)="toggleExpand()">
+        <i class="bi" [ngClass]="expanded ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+      </button>
+    </div>
+    
+    <div class="service-list" [ngClass]="{'expanded': expanded}">
+      <ul class="list-unstyled mb-0">
+        <li *ngFor="let service of services" class="service-item mb-3">
+          <a 
+            class="service-link" 
+            [routerLink]="isGroupService ? ['/group-service', service.id] : ['/service', categoryId, service.id]">
+            <div class="d-flex">
+              <i class="bi bi-check-circle-fill text-primary me-2 mt-1"></i>
+              <div>
+                <h5 class="h6 mb-1">{{ service.name }}</h5>
+                <p *ngIf="service.description" class="text-muted small mb-0">{{ service.description }}</p>
+              </div>
+              <i class="bi bi-arrow-right ms-auto text-primary"></i>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

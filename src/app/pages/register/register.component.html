@@ -1,0 +1,54 @@
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
+  <div class="card shadow-sm rounded-3 border-0" style="max-width: 500px; width: 100%;">
+    <div class="card-body p-4">
+      <div class="text-center mb-4">
+        <h2 class="text-primary fw-light">Crea tu cuenta</h2>
+        <p class="text-muted">Regístrate para comenzar a agendar citas</p>
+      </div>
+
+      <form>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="firstName" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="firstName" placeholder="Ingresa tu nombre">
+          </div>
+          <div class="col-md-6">
+            <label for="lastName" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Ingresa tu apellido">
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo electrónico</label>
+          <input type="email" class="form-control" id="email" placeholder="ejemplo@email.com">
+        </div>
+        
+        <div class="mb-3">
+          <label for="phone" class="form-label">Teléfono</label>
+          <input type="tel" class="form-control" id="phone" placeholder="+56 9 1234 5678">
+        </div>
+        
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="password" placeholder="••••••••">
+        </div>
+
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirmar contraseña</label>
+          <input type="password" class="form-control" id="confirmPassword" placeholder="••••••••">
+        </div>
+
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="termsCheck">
+          <label class="form-check-label" for="termsCheck">Acepto los <a href="#" class="text-decoration-none">términos y condiciones</a></label>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mb-3">Registrarse</button>
+        
+        <div class="text-center">
+          <p class="mb-0">¿Ya tienes una cuenta? <a routerLink="/login" class="text-decoration-none">Inicia sesión</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

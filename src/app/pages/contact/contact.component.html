@@ -1,0 +1,165 @@
+<div class="container py-5">
+  <!-- Encabezado -->
+  <div class="text-center mb-5">
+    <h1 class="fw-light display-5">Contacto</h1>
+    <p class="lead text-muted">Estamos aquí para atender tus consultas y ayudarte a reservar tus servicios de spa</p>
+  </div>
+  
+  <div class="row g-5">
+    <!-- Columna de información de contacto -->
+    <div class="col-lg-5">
+      <div class="contact-info mb-4">
+        <!-- Tarjetas de información -->
+        <div class="card border-0 shadow-sm mb-4" *ngFor="let info of contactInfo">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-3">
+              <div class="icon-wrapper me-3">
+                <i class="bi {{info.icon}}"></i>
+              </div>
+              <h3 class="h5 fw-light mb-0">{{info.title}}</h3>
+            </div>
+            <div class="ps-5">
+              <p class="mb-1 text-muted" *ngFor="let detail of info.details">{{detail}}</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Mapa -->
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-body p-0">
+            <div class="map-wrapper">
+              <img src="assets/images/map-placeholder.png" alt="Ubicación de RelaxSPA" class="img-fluid w-100">
+              <div class="map-overlay">
+                <a href="https://maps.google.com" target="_blank" class="btn btn-primary btn-sm">
+                  <i class="bi bi-box-arrow-up-right me-2"></i>Ver en Google Maps
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Redes sociales -->
+        <div class="social-media">
+          <h3 class="h5 fw-light mb-3">Síguenos en redes sociales</h3>
+          <div class="d-flex gap-2">
+            <a *ngFor="let social of socialMedia" 
+               href="{{social.url}}" 
+               target="_blank" 
+               class="btn btn-outline-primary social-btn" 
+               title="Síguenos en {{social.name}}">
+              <i class="bi {{social.icon}}"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Columna de formulario de contacto -->
+    <div class="col-lg-7">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4 p-lg-5">
+          <h2 class="h4 fw-light mb-4">Envíanos un mensaje</h2>
+          
+          <!-- Alerta de éxito -->
+          <div *ngIf="submitSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo a la brevedad.
+            <button type="button" class="btn-close" (click)="submitSuccess = false" aria-label="Close"></button>
+          </div>
+          
+          <!-- Formulario de contacto -->
+          <form (ngSubmit)="submitForm()" #contactForm="ngForm">
+            <div class="row g-3">
+              <!-- Nombre -->
+              <div class="col-md-6 mb-3">
+                <label for="name" class="form-label">Nombre completo*</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="name" 
+                  name="name" 
+                  [(ngModel)]="name" 
+                  required
+                  [ngClass]="{'is-invalid': contactForm.submitted && !name}"
+                >
+                <div class="invalid-feedback">
+                  Por favor ingresa tu nombre
+                </div>
+              </div>
+              
+              <!-- Email -->
+              <div class="col-md-6 mb-3">
+                <label for="email" class="form-label">Email*</label>
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  id="email" 
+                  name="email" 
+                  [(ngModel)]="email" 
+                  required
+                  [ngClass]="{'is-invalid': contactForm.submitted && !email}"
+                >
+                <div class="invalid-feedback">
+                  Por favor ingresa un email válido
+                </div>
+              </div>
+              
+              <!-- Teléfono -->
+              <div class="col-md-6 mb-3">
+                <label for="phone" class="form-label">Teléfono</label>
+                <input 
+                  type="tel" 
+                  class="form-control" 
+                  id="phone" 
+                  name="phone" 
+                  [(ngModel)]="phone"
+                >
+              </div>
+              
+              <!-- Asunto -->
+              <div class="col-md-6 mb-3">
+                <label for="subject" class="form-label">Asunto</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="subject" 
+                  name="subject" 
+                  [(ngModel)]="subject"
+                >
+              </div>
+              
+              <!-- Mensaje -->
+              <div class="col-12 mb-4">
+                <label for="message" class="form-label">Mensaje*</label>
+                <textarea 
+                  class="form-control" 
+                  id="message" 
+                  name="message" 
+                  rows="5" 
+                  [(ngModel)]="message" 
+                  required
+                  [ngClass]="{'is-invalid': contactForm.submitted && !message}"
+                ></textarea>
+                <div class="invalid-feedback">
+                  Por favor ingresa tu mensaje
+                </div>
+              </div>
+              
+              <!-- Botón de envío -->
+              <div class="col-12">
+                <button 
+                  type="submit" 
+                  class="btn btn-primary px-4" 
+                  [disabled]="isSubmitting"
+                >
+                  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  {{ isSubmitting ? 'Enviando...' : 'Enviar mensaje' }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

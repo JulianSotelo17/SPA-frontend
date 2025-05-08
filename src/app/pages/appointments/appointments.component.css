@@ -1,0 +1,76 @@
+.appointment-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.appointment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.service-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(100, 149, 237, 0.1);
+}
+
+.service-icon i {
+  font-size: 1.25rem;
+}
+
+.appointment-details {
+  margin-bottom: 1rem;
+}
+
+.appointment-details .list-group-item {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.badge {
+  font-weight: 500;
+  padding: 0.35em 0.65em;
+}
+
+/* Colores personalizados que combinan con el tema del SPA */
+.bg-primary {
+  background-color: #6495ED !important; /* Cornflower Blue - color principal del spa */
+}
+
+.text-primary {
+  color: #6495ED !important;
+}
+
+.btn-primary {
+  background-color: #6495ED;
+  border-color: #6495ED;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: #5A87D6;
+  border-color: #5A87D6;
+}
+
+.btn-outline-primary {
+  color: #6495ED;
+  border-color: #6495ED;
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:focus {
+  background-color: #6495ED;
+  border-color: #6495ED;
+}
+
+.btn-link {
+  color: #6495ED;
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  color: #5A87D6;
+  text-decoration: underline;
+}

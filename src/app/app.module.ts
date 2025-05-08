@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,8 @@ import { ServiceCardComponent } from './components/service-card/service-card.com
 import { ServiceDetailComponent } from './pages/service-detail/service-detail.component';
 import { GroupServiceDetailComponent } from './pages/group-service-detail/group-service-detail.component';
 import { AppointmentSchedulerComponent } from './components/appointment-scheduler/appointment-scheduler.component';
+import { AppointmentsComponent } from './pages/appointments/appointments.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -25,12 +28,15 @@ import { AppointmentSchedulerComponent } from './components/appointment-schedule
     ServiceCardComponent,
     ServiceDetailComponent,
     GroupServiceDetailComponent,
-    AppointmentSchedulerComponent
+    AppointmentSchedulerComponent,
+    AppointmentsComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

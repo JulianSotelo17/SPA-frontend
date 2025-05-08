@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="col-lg-6 mt-5 mt-lg-0">
-        <img src="assets/images/spa-hero.svg" alt="Relax Spa" class="img-fluid rounded-4 shadow-sm">
+        <img src="assets/images/logoImage.png" alt="Relax Spa" class="img-fluid rounded-4 shadow-sm">
       </div>
     </div>
   </div>
@@ -23,44 +23,16 @@
     <h2 class="text-center mb-5 fw-light">Nuestros servicios destacados</h2>
     
     <div class="row g-4">
-      <!-- Card 1 -->
-      <div class="col-md-4">
+      <!-- Iterar sobre los servicios destacados -->
+      <div class="col-md-4" *ngFor="let service of featuredServices">
         <div class="card h-100 border-0 shadow-sm service-card">
           <div class="card-body p-4 text-center">
             <div class="icon-wrapper mb-3">
-              <i class="bi bi-droplet-fill"></i>
+              <i class="bi {{service.icon}}"></i>
             </div>
-            <h3 class="card-title h4 fw-light">Masajes Terapéuticos</h3>
-            <p class="card-text text-muted">Alivia tensiones y mejora tu circulación con nuestros masajes personalizados.</p>
-            <a href="#" class="btn btn-link text-primary">Reservar ahora</a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Card 2 -->
-      <div class="col-md-4">
-        <div class="card h-100 border-0 shadow-sm service-card">
-          <div class="card-body p-4 text-center">
-            <div class="icon-wrapper mb-3">
-              <i class="bi bi-flower1"></i>
-            </div>
-            <h3 class="card-title h4 fw-light">Tratamientos Faciales</h3>
-            <p class="card-text text-muted">Rejuvenece tu piel con nuestros tratamientos faciales nutritivos y revitalizantes.</p>
-            <a href="#" class="btn btn-link text-primary">Reservar ahora</a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Card 3 -->
-      <div class="col-md-4">
-        <div class="card h-100 border-0 shadow-sm service-card">
-          <div class="card-body p-4 text-center">
-            <div class="icon-wrapper mb-3">
-              <i class="bi bi-moisture"></i>
-            </div>
-            <h3 class="card-title h4 fw-light">Aromaterapia</h3>
-            <p class="card-text text-muted">Experimenta el poder curativo de los aceites esenciales para restaurar tu equilibrio.</p>
-            <a href="#" class="btn btn-link text-primary">Reservar ahora</a>
+            <h3 class="card-title h4 fw-light">{{service.name}}</h3>
+            <p class="card-text text-muted">{{service.description}}</p>
+            <a [routerLink]="['/service', service.categoryId, service.id]" class="btn btn-link text-primary">Reservar ahora</a>
           </div>
         </div>
       </div>

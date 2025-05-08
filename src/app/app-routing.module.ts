@@ -6,6 +6,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { ServicesComponent } from './pages/services/services.component';
 import { ServiceDetailComponent } from './pages/service-detail/service-detail.component';
 import { GroupServiceDetailComponent } from './pages/group-service-detail/group-service-detail.component';
+import { AppointmentsComponent } from './pages/appointments/appointments.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -14,6 +16,8 @@ const routes: Routes = [
   { path: 'services', component: ServicesComponent },
   { path: 'service/:category/:id', component: ServiceDetailComponent },
   { path: 'group-service/:id', component: GroupServiceDetailComponent },
+  { path: 'appointments', component: AppointmentsComponent },
+  { path: 'contact', component: ContactComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home' }
 ];

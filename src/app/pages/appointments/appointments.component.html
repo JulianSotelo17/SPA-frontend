@@ -1,0 +1,88 @@
+<div class="container py-5">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1 class="fw-light text-center mb-4">Mis Citas</h1>
+      
+      <!-- Filtros -->
+      <div class="d-flex justify-content-center mb-4">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn" [class.btn-primary]="activeFilter === 'all'" 
+                  [class.btn-outline-primary]="activeFilter !== 'all'" (click)="filterAppointments('all')">
+            Todas
+          </button>
+          <button type="button" class="btn" [class.btn-primary]="activeFilter === 'pending'" 
+                  [class.btn-outline-primary]="activeFilter !== 'pending'" (click)="filterAppointments('pending')">
+            Pendientes
+          </button>
+          <button type="button" class="btn" [class.btn-primary]="activeFilter === 'confirmed'" 
+                  [class.btn-outline-primary]="activeFilter !== 'confirmed'" (click)="filterAppointments('confirmed')">
+            Confirmadas
+          </button>
+          <button type="button" class="btn" [class.btn-primary]="activeFilter === 'completed'" 
+                  [class.btn-outline-primary]="activeFilter !== 'completed'" (click)="filterAppointments('completed')">
+            Completadas
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mensaje cuando no hay citas -->
+  <div *ngIf="filteredAppointments.length === 0" class="text-center my-5">
+    <div class="icon-wrapper mb-3">
+      <i class="bi bi-calendar-x text-muted" style="font-size: 3rem;"></i>
+    </div>
+    <h3 class="h4 fw-light text-muted">No tienes citas {{activeFilter !== 'all' ? getStatusText(activeFilter).toLowerCase() + 's' : ''}} en este momento</h3>
+    <p class="text-muted">¿Por qué no exploras nuestros servicios y agendas una?</p>
+    <a routerLink="/services" class="btn btn-primary mt-2">Ver Servicios</a>
+  </div>
+  
+  <!-- Lista de citas -->
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-4" *ngFor="let appointment of filteredAppointments">
+      <div class="card h-100 border-0 shadow-sm appointment-card">
+        <!-- Cabecera con info del servicio -->
+        <div class="card-header bg-white border-0 pt-4">
+          <div class="d-flex align-items-center">
+            <div class="service-icon rounded-circle me-3 text-primary">
+              <i class="bi {{appointment.serviceIcon}}"></i>
+            </div>
+            <div>
+              <h5 class="card-title mb-1">{{appointment.serviceName}}</h5>
+              <span class="badge rounded-pill {{getStatusBadgeClass(appointment.status)}}">
+                {{getStatusText(appointment.status)}}
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Cuerpo con detalles de la cita -->
+        <div class="card-body">
+          <ul class="list-group list-group-flush appointment-details">
+            <li class="list-group-item border-0 ps-0">
+              <i class="bi bi-calendar-date me-2 text-primary"></i>
+              <strong class="me-2">Fecha:</strong> {{formatDate(appointment.date)}}
+            </li>
+            <li class="list-group-item border-0 ps-0">
+              <i class="bi bi-clock me-2 text-primary"></i>
+              <strong class="me-2">Hora:</strong> {{appointment.time}}
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Pie con acciones -->
+        <div class="card-footer bg-white border-0 pb-4">
+          <div class="d-flex justify-content-between">
+            <a [routerLink]="['/service', appointment.categoryId, appointment.serviceId]" class="btn btn-link text-primary ps-0">
+              Ver servicio
+            </a>
+            <button *ngIf="appointment.status === 'pending' || appointment.status === 'confirmed'" 
+                    class="btn btn-outline-danger" title="Cancelar cita">
+              <i class="bi bi-calendar-x"></i> Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

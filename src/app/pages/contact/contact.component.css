@@ -1,0 +1,109 @@
+.icon-wrapper {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(100, 149, 237, 0.1); /* Cornflower Blue con transparencia */
+  border-radius: 50%;
+  color: #6495ED;
+}
+
+.icon-wrapper i {
+  font-size: 1.25rem;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.map-wrapper {
+  position: relative;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.map-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.map-wrapper:hover .map-overlay {
+  opacity: 1;
+}
+
+.social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Personalizar colores de Bootstrap para mantener la coherencia con el tema */
+.btn-primary {
+  background-color: #6495ED;
+  border-color: #6495ED;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #5A87D6;
+  border-color: #5A87D6;
+}
+
+.btn-outline-primary {
+  color: #6495ED;
+  border-color: #6495ED;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  background-color: #6495ED;
+  border-color: #6495ED;
+}
+
+.form-control:focus {
+  border-color: #6495ED;
+  box-shadow: 0 0 0 0.25rem rgba(100, 149, 237, 0.25);
+}
+
+/* Animación para el formulario cuando se envía con éxito */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.alert {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contact-info .card {
+    margin-bottom: 1.5rem;
+  }
+}

@@ -13,7 +13,7 @@ interface ProfileResponse {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'https://spa-backend-production-e7e7.up.railway.app/api';
   
   constructor(private http: HttpClient) { }
   

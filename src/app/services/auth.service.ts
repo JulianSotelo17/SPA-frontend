@@ -28,7 +28,7 @@ export interface RegisterResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'https://spa-backend-production-e7e7.up.railway.app/api';
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser: Observable<User | null>;
   

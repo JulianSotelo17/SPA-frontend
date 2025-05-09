@@ -38,7 +38,7 @@ export class ServiceDetailComponent implements OnInit {
           benefits: ['Reduce el estrés y la ansiedad', 'Mejora la calidad del sueño', 'Alivia la tensión muscular', 'Aumenta la sensación de bienestar'],
           duration: '60 minutos',
           price: '$4,500',
-          image: 'assets/images/services/massage-1.jpg'
+          image: 'assets/images/servicesImages/antiEstresImage.png'
         },
         'descontracturantes': {
           id: 'descontracturantes',
@@ -47,7 +47,7 @@ export class ServiceDetailComponent implements OnInit {
           benefits: ['Libera contracturas musculares', 'Reduce dolores crónicos', 'Mejora la movilidad', 'Acelera la recuperación muscular'],
           duration: '50 minutos',
           price: '$5,000',
-          image: 'assets/images/services/massage-2.jpg'
+          image: 'assets/images/servicesImages/destructuranteImage.jpeg'
         },
         'piedras-calientes': {
           id: 'piedras-calientes',
@@ -56,7 +56,7 @@ export class ServiceDetailComponent implements OnInit {
           benefits: ['Relaja profundamente los músculos', 'Mejora la circulación', 'Equilibra los centros energéticos', 'Proporciona sensación de bienestar'],
           duration: '75 minutos',
           price: '$5,800',
-          image: 'assets/images/services/massage-3.jpg'
+          image: 'assets/images/servicesImages/piedrasCalientesImage.jpg'
         },
         'circulatorios': {
           id: 'circulatorios',
@@ -65,7 +65,7 @@ export class ServiceDetailComponent implements OnInit {
           benefits: ['Mejora la circulación sanguínea', 'Reduce la retención de líquidos', 'Ayuda a eliminar toxinas', 'Disminuye la sensación de piernas pesadas'],
           duration: '45 minutos',
           price: '$4,200',
-          image: 'assets/images/services/massage-4.jpg'
+          image: 'assets/images/servicesImages/circulatorioImage.png'
         }
       }
     },
@@ -79,7 +79,7 @@ export class ServiceDetailComponent implements OnInit {
           benefits: ['Efecto de pestañas más largas', 'Mirada más despejada', 'Dura hasta 8 semanas', 'No requiere mantenimiento diario'],
           duration: '45 minutos',
           price: '$3,800',
-          image: 'assets/images/services/beauty-1.jpg'
+          image: 'assets/images/servicesImages/liftingPestanas.png'
         },
         'depilacion-facial': {
           id: 'depilacion-facial',
@@ -88,7 +88,7 @@ export class ServiceDetailComponent implements OnInit {
           benefits: ['Piel suave y tersa', 'Tratamiento personalizado por zonas', 'Ideal para pieles sensibles', 'Resultados duraderos'],
           duration: '30 minutos',
           price: '$2,500',
-          image: 'assets/images/services/beauty-2.jpg'
+          image: 'assets/images/servicesImages/depilacionFacial.png'
         },
         'manos-pies': {
           id: 'manos-pies',
@@ -97,7 +97,7 @@ export class ServiceDetailComponent implements OnInit {
           benefits: ['Uñas perfectamente arregladas', 'Piel hidratada y suave', 'Incluye masaje relajante', 'Elimina células muertas y durezas'],
           duration: '80 minutos',
           price: '$3,900',
-          image: 'assets/images/services/beauty-3.jpg'
+          image: 'assets/images/servicesImages/manosYPies.jpg'
         }
       }
     },
@@ -111,7 +111,7 @@ export class ServiceDetailComponent implements OnInit {
           benefits: ['Reduce líneas finas', 'Disminuye manchas superficiales', 'Mejora la textura de la piel', 'Estimula la producción de colágeno'],
           duration: '50 minutos',
           price: '$4,600',
-          image: 'assets/images/services/facial-1.jpg'
+          image: 'assets/images/servicesImages/microexfoliacion.jpg'
         },
         'limpieza-hidratacion': {
           id: 'limpieza-hidratacion',
@@ -120,7 +120,7 @@ export class ServiceDetailComponent implements OnInit {
           benefits: ['Elimina impurezas y puntos negros', 'Equilibra el pH de la piel', 'Hidratación intensa', 'Piel más luminosa y radiante'],
           duration: '60 minutos',
           price: '$4,200',
-          image: 'assets/images/services/facial-2.jpg'
+          image: 'assets/images/servicesImages/limpiezaHidratacion.webp'
         },
         'crio-frecuencia': {
           id: 'crio-frecuencia',
@@ -129,7 +129,7 @@ export class ServiceDetailComponent implements OnInit {
           benefits: ['Efecto lifting inmediato', 'Reduce la flacidez facial', 'Mejora la definición del óvalo facial', 'Estimula la producción de colágeno y elastina'],
           duration: '45 minutos',
           price: '$5,500',
-          image: 'assets/images/services/facial-3.jpg'
+          image: 'assets/images/servicesImages/criofrecuencia.jpg'
         }
       }
     },
@@ -143,7 +143,7 @@ export class ServiceDetailComponent implements OnInit {
           benefits: ['Reduce la circunferencia corporal', 'Disminuye la apariencia de celulitis', 'Mejora la textura de la piel', 'Reafirma zonas con flacidez'],
           duration: '60 minutos',
           price: '$6,500',
-          image: 'assets/images/services/body-1.jpg'
+          image: 'assets/images/servicesImages/velaslim.jpg'
         },
         'dermohealth': {
           id: 'dermohealth',
@@ -152,7 +152,7 @@ export class ServiceDetailComponent implements OnInit {
           benefits: ['Reduce la retención de líquidos', 'Mejora la circulación sanguínea', 'Ayuda a eliminar toxinas', 'Combate la celulitis'],
           duration: '50 minutos',
           price: '$5,800',
-          image: 'assets/images/services/body-2.jpg'
+          image: 'assets/images/servicesImages/dermoHealth.webp'
         },
         'criofrecuencia': {
           id: 'criofrecuencia',
@@ -161,7 +161,7 @@ export class ServiceDetailComponent implements OnInit {
           benefits: ['Reafirma la piel', 'Reduce la flacidez', 'Mejora el contorno corporal', 'Efecto lifting inmediato'],
           duration: '70 minutos',
           price: '$7,200',
-          image: 'assets/images/services/body-3.jpg'
+          image: 'assets/images/servicesImages/criofrecuenciaCorporal.jpg'
         },
         'ultracavitacion': {
           id: 'ultracavitacion',
@@ -170,7 +170,7 @@ export class ServiceDetailComponent implements OnInit {
           benefits: ['Reduce grasa localizada', 'No invasivo e indoloro', 'Resultados visibles desde las primeras sesiones', 'Ideal para zonas específicas'],
           duration: '45 minutos',
           price: '$5,500',
-          image: 'assets/images/services/body-4.jpg'
+          image: 'assets/images/servicesImages/ultracavitacionCorporal.webp'
         }
       }
     }

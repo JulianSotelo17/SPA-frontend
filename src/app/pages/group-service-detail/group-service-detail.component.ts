@@ -32,7 +32,7 @@ export class GroupServiceDetailComponent implements OnInit {
       ],
       capacity: '6 personas',
       price: '$3,500 por sesión',
-      image: 'assets/images/services/group-1.jpg',
+      image: 'assets/images/servicesImages/hidromasajes.jpg',
       schedules: [
         { dayOfWeek: 'Lunes', time: '10:00 - 11:00', instructor: 'Carolina Méndez', duration: '60 minutos', level: 'Todos los niveles' },
         { dayOfWeek: 'Lunes', time: '18:00 - 19:00', instructor: 'Gabriel Torres', duration: '60 minutos', level: 'Todos los niveles' },
@@ -54,7 +54,7 @@ export class GroupServiceDetailComponent implements OnInit {
       ],
       capacity: '12 personas',
       price: '$2,800 por sesión / $8,500 mensual (3 clases por semana)',
-      image: 'assets/images/services/group-2.jpg',
+      image: 'assets/images/servicesImages/yoga.jpg',
       schedules: [
         { dayOfWeek: 'Lunes', time: '08:00 - 09:15', instructor: 'María Jiménez', duration: '75 minutos', level: 'Principiante' },
         { dayOfWeek: 'Lunes', time: '19:00 - 20:15', instructor: 'Fernando Vega', duration: '75 minutos', level: 'Intermedio' },

@@ -6,44 +6,92 @@
         <p class="text-muted">Regístrate para comenzar a agendar citas</p>
       </div>
 
-      <form>
+      <!-- Alerta de error -->
+      <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ errorMessage }}
+        <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="row mb-3">
           <div class="col-md-6">
             <label for="firstName" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="firstName" placeholder="Ingresa tu nombre">
+            <input type="text" class="form-control" id="firstName" formControlName="firstName" 
+                   placeholder="Ingresa tu nombre" 
+                   [ngClass]="{'is-invalid': submitted && f['firstName'].errors}">
+            <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
+              <div *ngIf="f['firstName'].errors['required']">El nombre es requerido</div>
+              <div *ngIf="f['firstName'].errors['minlength']">El nombre debe tener al menos 2 caracteres</div>
+            </div>
           </div>
           <div class="col-md-6">
             <label for="lastName" class="form-label">Apellido</label>
-            <input type="text" class="form-control" id="lastName" placeholder="Ingresa tu apellido">
+            <input type="text" class="form-control" id="lastName" formControlName="lastName" 
+                   placeholder="Ingresa tu apellido"
+                   [ngClass]="{'is-invalid': submitted && f['lastName'].errors}">
+            <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
+              <div *ngIf="f['lastName'].errors['required']">El apellido es requerido</div>
+              <div *ngIf="f['lastName'].errors['minlength']">El apellido debe tener al menos 2 caracteres</div>
+            </div>
           </div>
         </div>
         
         <div class="mb-3">
           <label for="email" class="form-label">Correo electrónico</label>
-          <input type="email" class="form-control" id="email" placeholder="ejemplo@email.com">
+          <input type="email" class="form-control" id="email" formControlName="email" 
+                 placeholder="ejemplo@email.com"
+                 [ngClass]="{'is-invalid': submitted && f['email'].errors}">
+          <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+            <div *ngIf="f['email'].errors['required']">El correo es requerido</div>
+            <div *ngIf="f['email'].errors['email']">Ingrese un correo electrónico válido</div>
+          </div>
         </div>
         
         <div class="mb-3">
           <label for="phone" class="form-label">Teléfono</label>
-          <input type="tel" class="form-control" id="phone" placeholder="+56 9 1234 5678">
+          <input type="tel" class="form-control" id="phone" formControlName="phone" 
+                 placeholder="+56 9 1234 5678"
+                 [ngClass]="{'is-invalid': submitted && f['phone'].errors}">
+          <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback">
+            <div *ngIf="f['phone'].errors['pattern']">Ingrese un número de teléfono válido</div>
+          </div>
         </div>
         
         <div class="mb-3">
           <label for="password" class="form-label">Contraseña</label>
-          <input type="password" class="form-control" id="password" placeholder="••••••••">
+          <input type="password" class="form-control" id="password" formControlName="password" 
+                 placeholder="••••••••"
+                 [ngClass]="{'is-invalid': submitted && f['password'].errors}">
+          <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+            <div *ngIf="f['password'].errors['required']">La contraseña es requerida</div>
+            <div *ngIf="f['password'].errors['minlength']">La contraseña debe tener al menos 6 caracteres</div>
+          </div>
         </div>
 
         <div class="mb-3">
           <label for="confirmPassword" class="form-label">Confirmar contraseña</label>
-          <input type="password" class="form-control" id="confirmPassword" placeholder="••••••••">
+          <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" 
+                 placeholder="••••••••"
+                 [ngClass]="{'is-invalid': submitted && (f['confirmPassword'].errors || registerForm.errors?.['passwordMismatch'])}">
+          <div *ngIf="submitted && (f['confirmPassword'].errors || registerForm.errors?.['passwordMismatch'])" class="invalid-feedback">
+            <div *ngIf="f['confirmPassword'].errors?.['required']">La confirmación de contraseña es requerida</div>
+            <div *ngIf="registerForm.errors?.['passwordMismatch']">Las contraseñas no coinciden</div>
+          </div>
         </div>
 
         <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="termsCheck">
+          <input type="checkbox" class="form-check-input" id="termsCheck" formControlName="termsCheck"
+                 [ngClass]="{'is-invalid': submitted && f['termsCheck'].errors}">
           <label class="form-check-label" for="termsCheck">Acepto los <a href="#" class="text-decoration-none">términos y condiciones</a></label>
+          <div *ngIf="submitted && f['termsCheck'].errors" class="invalid-feedback">
+            <div *ngIf="f['termsCheck'].errors['required']">Debe aceptar los términos y condiciones</div>
+          </div>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100 mb-3">Registrarse</button>
+        <button type="submit" class="btn btn-primary w-100 mb-3" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+          Registrarse
+        </button>
         
         <div class="text-center">
           <p class="mb-0">¿Ya tienes una cuenta? <a routerLink="/login" class="text-decoration-none">Inicia sesión</a></p>

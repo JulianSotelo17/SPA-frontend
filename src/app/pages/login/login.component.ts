@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -7,22 +8,60 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  email: string = '';
-  password: string = '';
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
   loading: boolean = false;
+  submitted: boolean = false;
   errorMessage: string = '';
+  rememberMe: boolean = false;
   
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router, 
+    private authService: AuthService
+  ) { }
+  
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      rememberMe: [false]
+    });
+
+    // Verificar si hay credenciales guardadas en localStorage
+    const savedEmail = localStorage.getItem('rememberedEmail');
+    if (savedEmail) {
+      this.loginForm.patchValue({
+        email: savedEmail,
+        rememberMe: true
+      });
+    }
+  }
+  
+  // Getter para acceso fácil a los campos del formulario
+  get f() { return this.loginForm.controls; }
   
   login() {
+    this.submitted = true;
+    
+    // Detener si el formulario es inválido
+    if (this.loginForm.invalid) {
+      return;
+    }
+    
     this.loading = true;
     this.errorMessage = '';
     
-    // Usar datos del formulario (temporal)
-    // En producción, estos valores vendrían del formulario
-    const email = 'usuario@test.com'; // Usando el usuario demo que creamos en el backend
-    const password = '123456';
+    const email = this.f['email'].value;
+    const password = this.f['password'].value;
+    this.rememberMe = this.f['rememberMe'].value;
+    
+    // Guardar email en localStorage si rememberMe está marcado
+    if (this.rememberMe) {
+      localStorage.setItem('rememberedEmail', email);
+    } else {
+      localStorage.removeItem('rememberedEmail');
+    }
     
     console.log(`Intentando login con: ${email}`);
     

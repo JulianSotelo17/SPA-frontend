@@ -28,7 +28,7 @@ export interface RegisterResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://spa-backend-production-e7e7.up.railway.app/api';
+  private apiUrl = 'http://localhost:3000/api';
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser: Observable<User | null>;
   
@@ -65,8 +65,8 @@ export class AuthService {
       );
   }
   
-  register(name: string, email: string, password: string): Observable<RegisterResponse> {
-    return this.http.post<RegisterResponse>(`${this.apiUrl}/auth/register`, { name, email, password })
+  register(userData: { name: string, email: string, password: string, role?: string, phone?: string }): Observable<RegisterResponse> {
+    return this.http.post<RegisterResponse>(`${this.apiUrl}/auth/register`, userData)
       .pipe(
         tap(response => {
           if (response.success && response.user && response.token) {

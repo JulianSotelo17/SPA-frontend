@@ -8,7 +8,7 @@
     
     <!-- Botón de hamburguesa para móviles -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     
@@ -21,18 +21,42 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/services" routerLinkActive="active">Servicios</a>
         </li>
-        <li class="nav-item">
+        <!-- Solo mostrar Mis Citas para usuarios autenticados -->
+        <li class="nav-item" *ngIf="currentUser">
           <a class="nav-link" routerLink="/appointments" routerLinkActive="active">Mis Citas</a>
+        </li>
+        <!-- Menú solo para profesionales -->
+        <li class="nav-item" *ngIf="currentUser?.role === 'professional'">
+          <a class="nav-link" routerLink="/professional-schedule" routerLinkActive="active">Mi Agenda</a>
+        </li>
+        <!-- Menú solo para administradores -->
+        <li class="nav-item" *ngIf="currentUser?.role === 'admin'">
+          <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active">Panel Admin</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contacto</a>
         </li>
       </ul>
       
-      <!-- Botones de usuario -->
-      <div class="d-flex align-items-center ms-lg-3">
+      <!-- Mostrar botones de login/register SOLO cuando NO hay usuario autenticado -->
+      <div class="d-flex align-items-center ms-lg-3" *ngIf="!currentUser">
         <a class="btn btn-outline-primary me-2" routerLink="/login">Iniciar Sesión</a>
         <a class="btn btn-primary" routerLink="/register">Registrarse</a>
+      </div>
+      
+      <!-- Mostrar dropdown de usuario cuando HAY usuario autenticado -->
+      <div class="dropdown ms-lg-3" *ngIf="currentUser">
+        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="userDropdown" 
+                data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-person-circle me-1"></i> {{ currentUser.name }}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+          <li><h6 class="dropdown-header">{{ currentUser.email }}</h6></li>
+          <li><a class="dropdown-item" routerLink="/profile">Mi Perfil</a></li>
+          <li><a class="dropdown-item" routerLink="/appointments">Mis Citas</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item text-danger" href="javascript:void(0)" (click)="logout()">Cerrar Sesión</a></li>
+        </ul>
       </div>
     </div>
   </div>

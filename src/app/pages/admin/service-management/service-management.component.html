@@ -1,0 +1,210 @@
+<div class="container py-5">
+  <!-- Encabezado -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="fw-bold text-primary">Gestión de Servicios</h1>
+          <p class="lead text-muted">Administra los servicios disponibles en RelaxSPA</p>
+        </div>
+        <div>
+          <a routerLink="/admin/dashboard" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i> Volver al Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mensajes de éxito o error -->
+  <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="success">
+    <i class="bi bi-check-circle-fill me-2"></i> {{ success }}
+    <button type="button" class="btn-close" (click)="success = ''"></button>
+  </div>
+  
+  <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="error">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
+    <button type="button" class="btn-close" (click)="error = ''"></button>
+  </div>
+  
+  <!-- Formulario de creación/edición de servicio -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-header bg-primary bg-opacity-10 py-3">
+      <h3 class="card-title mb-0">
+        <i class="bi bi-plus-circle me-2"></i>
+        {{ isEditing ? 'Editar Servicio' : 'Crear Nuevo Servicio' }}
+      </h3>
+    </div>
+    
+    <div class="card-body">
+      <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="row g-3">
+          <!-- Nombre del servicio -->
+          <div class="col-md-6">
+            <label for="name" class="form-label">Nombre del servicio *</label>
+            <input type="text" class="form-control" id="name" formControlName="name"
+              [ngClass]="{'is-invalid': serviceForm.get('name')?.invalid && serviceForm.get('name')?.touched}">
+            <div class="invalid-feedback" *ngIf="serviceForm.get('name')?.errors?.['required'] && serviceForm.get('name')?.touched">
+              El nombre es obligatorio
+            </div>
+            <div class="invalid-feedback" *ngIf="serviceForm.get('name')?.errors?.['minlength']">
+              El nombre debe tener al menos 3 caracteres
+            </div>
+          </div>
+          
+          <!-- Categoría -->
+          <div class="col-md-6">
+            <label for="category" class="form-label">Categoría *</label>
+            <select class="form-select" id="category" formControlName="category"
+              [ngClass]="{'is-invalid': serviceForm.get('category')?.invalid && serviceForm.get('category')?.touched}">
+              <option value="" disabled selected>Seleccione una categoría</option>
+              <option *ngFor="let category of serviceCategories" [value]="category">{{ category }}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="serviceForm.get('category')?.errors?.['required'] && serviceForm.get('category')?.touched">
+              La categoría es obligatoria
+            </div>
+          </div>
+          
+          <!-- Descripción -->
+          <div class="col-12">
+            <label for="description" class="form-label">Descripción *</label>
+            <textarea class="form-control" id="description" formControlName="description" rows="3"
+              [ngClass]="{'is-invalid': serviceForm.get('description')?.invalid && serviceForm.get('description')?.touched}"></textarea>
+            <div class="invalid-feedback" *ngIf="serviceForm.get('description')?.errors?.['required'] && serviceForm.get('description')?.touched">
+              La descripción es obligatoria
+            </div>
+            <div class="invalid-feedback" *ngIf="serviceForm.get('description')?.errors?.['minlength']">
+              La descripción debe tener al menos 10 caracteres
+            </div>
+          </div>
+          
+          <!-- Duración -->
+          <div class="col-md-4">
+            <label for="duration" class="form-label">Duración (minutos) *</label>
+            <input type="number" class="form-control" id="duration" formControlName="duration"
+              [ngClass]="{'is-invalid': serviceForm.get('duration')?.invalid && serviceForm.get('duration')?.touched}">
+            <div class="invalid-feedback" *ngIf="serviceForm.get('duration')?.invalid && serviceForm.get('duration')?.touched">
+              La duración debe estar entre 15 y 240 minutos
+            </div>
+          </div>
+          
+          <!-- Precio -->
+          <div class="col-md-4">
+            <label for="price" class="form-label">Precio ($) *</label>
+            <input type="number" class="form-control" id="price" formControlName="price" step="0.01"
+              [ngClass]="{'is-invalid': serviceForm.get('price')?.invalid && serviceForm.get('price')?.touched}">
+            <div class="invalid-feedback" *ngIf="serviceForm.get('price')?.invalid && serviceForm.get('price')?.touched">
+              El precio debe ser mayor o igual a 0
+            </div>
+          </div>
+          
+          <!-- URL de imagen -->
+          <div class="col-md-4">
+            <label for="image" class="form-label">URL de imagen (opcional)</label>
+            <input type="text" class="form-control" id="image" formControlName="image">
+          </div>
+          
+          <!-- Es servicio grupal -->
+          <div class="col-md-6">
+            <div class="form-check form-switch my-2">
+              <input class="form-check-input" type="checkbox" id="isGroupService" formControlName="isGroupService"
+                (change)="onIsGroupServiceChange()">
+              <label class="form-check-label" for="isGroupService">Es un servicio grupal</label>
+            </div>
+          </div>
+          
+          <!-- Capacidad máxima (solo para servicios grupales) -->
+          <div class="col-md-6" *ngIf="serviceForm.get('isGroupService')?.value">
+            <label for="maxCapacity" class="form-label">Capacidad máxima *</label>
+            <input type="number" class="form-control" id="maxCapacity" formControlName="maxCapacity"
+              [ngClass]="{'is-invalid': serviceForm.get('maxCapacity')?.invalid && serviceForm.get('maxCapacity')?.touched}">
+            <div class="invalid-feedback" *ngIf="serviceForm.get('maxCapacity')?.errors?.['required'] && serviceForm.get('maxCapacity')?.touched">
+              La capacidad máxima es obligatoria para servicios grupales
+            </div>
+            <div class="invalid-feedback" *ngIf="serviceForm.get('maxCapacity')?.errors?.['min']">
+              La capacidad debe ser al menos 2 personas
+            </div>
+          </div>
+          
+          <!-- Botones de acción -->
+          <div class="col-12 d-flex justify-content-end gap-2 mt-4">
+            <button type="button" class="btn btn-outline-secondary" (click)="resetForm()">
+              <i class="bi bi-x-circle me-1"></i>
+              {{ isEditing ? 'Cancelar' : 'Limpiar' }}
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="loading">
+              <i class="bi" [ngClass]="{'bi-save': !loading, 'bi-hourglass-split': loading}"></i>
+              {{ isEditing ? 'Actualizar' : 'Crear' }} Servicio
+              <span class="spinner-border spinner-border-sm ms-1" *ngIf="loading" role="status" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Lista de servicios -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary bg-opacity-10 py-3">
+      <h3 class="card-title mb-0">
+        <i class="bi bi-list-stars me-2"></i> Servicios Disponibles
+      </h3>
+    </div>
+    
+    <div class="card-body p-0">
+      <!-- Loading spinner -->
+      <div class="text-center py-5" *ngIf="loading && !services.length">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+        <p class="mt-2 text-muted">Cargando servicios...</p>
+      </div>
+      
+      <!-- Mensaje de no hay servicios -->
+      <div class="text-center py-5" *ngIf="!loading && !services.length">
+        <i class="bi bi-inbox text-muted" style="font-size: 3rem;"></i>
+        <p class="lead mt-3">No hay servicios disponibles</p>
+        <p class="text-muted">Crea un nuevo servicio usando el formulario de arriba.</p>
+      </div>
+      
+      <!-- Tabla de servicios -->
+      <div class="table-responsive" *ngIf="services.length">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Duración</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let service of services">
+              <td>{{ service.name }}</td>
+              <td>{{ service.category }}</td>
+              <td>{{ service.duration }} min</td>
+              <td>{{ service.price | currency:'USD':'symbol':'1.2-2' }}</td>
+              <td>
+                <span class="badge" [ngClass]="{'bg-success': service.isGroupService, 'bg-info': !service.isGroupService}">
+                  {{ service.isGroupService ? 'Grupal' : 'Individual' }}
+                </span>
+              </td>
+              <td>
+                <div class="btn-group btn-group-sm">
+                  <button class="btn btn-outline-primary" (click)="editService(service)" title="Editar servicio">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-outline-danger" (click)="deleteService(service.id)" title="Eliminar servicio">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,15 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
+// Registrar el locale 'es'
+registerLocaleData(localeEs);
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +24,8 @@ import { GroupServiceDetailComponent } from './pages/group-service-detail/group-
 import { AppointmentSchedulerComponent } from './components/appointment-scheduler/appointment-scheduler.component';
 import { AppointmentsComponent } from './pages/appointments/appointments.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { PaymentSummaryComponent } from './pages/payment-summary/payment-summary.component';
+import { ProfessionalScheduleComponent } from './pages/professional-schedule/professional-schedule.component';
 
 @NgModule({
   declarations: [
@@ -30,16 +40,27 @@ import { ContactComponent } from './pages/contact/contact.component';
     GroupServiceDetailComponent,
     AppointmentSchedulerComponent,
     AppointmentsComponent,
-    ContactComponent
+    ContactComponent,
+    PaymentSummaryComponent,
+    ProfessionalScheduleComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    })
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'es' } 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

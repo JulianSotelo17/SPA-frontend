@@ -1,0 +1,30 @@
+.modal {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.card {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: #6495ED;
+}
+
+.btn-primary {
+  background-color: #6495ED;
+  border-color: #6495ED;
+}
+
+.btn-primary:hover {
+  background-color: #5a85d8;
+  border-color: #5a85d8;
+}
+
+.badge.bg-info {
+  background-color: #a7c5ff !important;
+}
+
+.table th {
+  font-weight: 600;
+}

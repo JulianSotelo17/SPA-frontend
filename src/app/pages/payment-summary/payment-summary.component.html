@@ -1,0 +1,61 @@
+<div class="container mt-5">
+  <div *ngIf="isLoading" class="d-flex justify-content-center p-5">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && !appointment" class="alert alert-danger text-center">
+    <h4>Error al Cargar el Turno</h4>
+    <p>No pudimos encontrar los detalles de tu turno. Es posible que el enlace sea incorrecto o haya expirado.</p>
+    <button routerLink="/appointments" class="btn btn-secondary">Ir a Mis Turnos</button>
+  </div>
+
+  <div *ngIf="!isLoading && appointment" class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white">
+      <h2 class="card-title text-center mb-0">Resumen de tu Turno</h2>
+    </div>
+    <div class="card-body p-4">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <h5 class="text-muted">Servicio</h5>
+          <p class="lead fs-5">{{ appointment.service.name }}</p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <h5 class="text-muted">Profesional</h5>
+          <p class="lead fs-5">{{ appointment.professional.name }}</p>
+        </div>
+      </div>
+      <hr>
+      <div class="row mt-3">
+        <div class="col-md-6 mb-3">
+          <h5 class="text-muted">Fecha y Hora</h5>
+          <p class="lead fs-5">{{ appointment.date | date:'fullDate' }} a las {{ appointment.startTime | slice:0:5 }} hs</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <h5 class="text-muted">Total a Pagar</h5>
+          <div *ngIf="hasDiscount" class="price-container">
+              <p class="text-muted mb-0"><small>Precio Original: <span class="text-decoration-line-through">{{ originalPrice | currency:'ARS':'symbol':'1.2-2' }}</span></small></p>
+              <p class="text-success fw-bold mb-1"><small>Descuento Online (15%): -{{ (originalPrice - displayPrice) | currency:'ARS':'symbol':'1.2-2' }}</small></p>
+          </div>
+          <p class="display-6 text-primary fw-bold">{{ displayPrice | currency:'ARS':'symbol':'1.2-2' }}</p>
+        </div>
+      </div>
+
+      <div class="alert alert-info mt-4">
+        <i class="bi bi-info-circle-fill"></i>
+        Estás a punto de confirmar tu turno. Al hacer clic en "Pagar y Confirmar", tu turno quedará agendado y se procesará el pago (simulado).
+      </div>
+
+      <div class="d-grid gap-2 mt-4">
+        <button (click)="confirmPayment()" class="btn btn-primary btn-lg" [disabled]="isProcessing">
+          <span *ngIf="!isProcessing">Pagar y Confirmar Turno</span>
+          <span *ngIf="isProcessing" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span *ngIf="isProcessing"> Procesando pago...</span>
+        </button>
+        <button routerLink="/appointments" class="btn btn-outline-secondary">Cancelar y volver a Mis Turnos</button>
+      </div>
+    </div>
+  </div>
+</div>
+

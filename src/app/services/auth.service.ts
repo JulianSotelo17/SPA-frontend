@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 export interface User {
   id: number;
@@ -28,7 +29,7 @@ export interface RegisterResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = environment.apiUrl;
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser: Observable<User | null>;
   
@@ -52,11 +53,13 @@ export class AuthService {
   login(email: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, { email, password })
       .pipe(
-        tap(response => {
-          if (response.success && response.user && response.token) {
+        tap((response:any) => {
+          // console.log("entre en auth.service linea 56", response)
+          if (response.success && response.data.token) {
             // Guardar token y usuario en localStorage
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('currentUser', JSON.stringify(response.user));
+            // console.log("entre en auth.service linea 58")
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('currentUser', JSON.stringify(response.data));
             
             // Actualizar el BehaviorSubject
             this.currentUserSubject.next(response.user);
@@ -65,7 +68,7 @@ export class AuthService {
       );
   }
   
-  register(userData: { name: string, email: string, password: string, role?: string, phone?: string }): Observable<RegisterResponse> {
+  register(userData: any): Observable<RegisterResponse> {
     return this.http.post<RegisterResponse>(`${this.apiUrl}/auth/register`, userData)
       .pipe(
         tap(response => {

@@ -1,10 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-interface Service {
-  id: string;
-  name: string;
-  description?: string;
-}
+import { Service } from '../../models/service.model';
 
 @Component({
   selector: 'app-service-card',

@@ -1,0 +1,80 @@
+/* Estilos para el componente de gestión de servicios */
+
+/* Colores personalizados usando la paleta del spa */
+.text-primary {
+  color: #6495ED !important; /* Azul cornflower (color principal) */
+}
+
+.bg-primary {
+  background-color: #6495ED !important;
+}
+
+.bg-primary.bg-opacity-10 {
+  background-color: rgba(100, 149, 237, 0.1) !important;
+}
+
+.btn-primary {
+  background-color: #6495ED !important;
+  border-color: #6495ED !important;
+}
+
+.btn-primary:hover {
+  background-color: #5a86dc !important;
+  border-color: #5a86dc !important;
+}
+
+.btn-outline-primary {
+  color: #6495ED !important;
+  border-color: #6495ED !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: #6495ED !important;
+  color: #fff !important;
+}
+
+/* Animaciones y transiciones */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #6495ED;
+  box-shadow: 0 0 0 0.25rem rgba(100, 149, 237, 0.25);
+}
+
+/* Estilos para la tabla */
+.table th {
+  font-weight: 600;
+  color: #495057;
+  background-color: #f8f9fa;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+/* Estilo para mensajes de error */
+.invalid-feedback {
+  font-size: 0.85rem;
+}
+
+/* Estilos de botones de acción en la tabla */
+.btn-group-sm .btn {
+  padding: 0.25rem 0.5rem;
+}
+
+/* Mejoras para mobile */
+@media (max-width: 768px) {
+  .table {
+    font-size: 0.85rem;
+  }
+  
+  .table-responsive {
+    overflow-x: auto;
+  }
+}

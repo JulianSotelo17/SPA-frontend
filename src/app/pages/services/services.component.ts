@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ServiceService } from '../../services/service.service';
+import { Service, ServiceCategory } from '../../models/service.model';
 
-interface Service {
-  id: string;
-  name: string;
-  description?: string;
-}
-
-interface ServiceCategory {
+// Interfaz para organizar servicios por categoría en la vista
+export interface CategoryGroup {
   id: string;
   title: string;
   icon: string;
@@ -19,66 +16,148 @@ interface ServiceCategory {
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.css']
 })
-export class ServicesComponent {
-  individualServices: ServiceCategory[] = [
-    {
-      id: 'masajes',
-      title: 'Masajes',
-      icon: 'bi-hand-index-thumb',
-      bgColor: 'bg-white',
-      services: [
-        { id: 'anti-stress', name: 'Anti-stress' },
-        { id: 'descontracturantes', name: 'Descontracturantes' },
-        { id: 'piedras-calientes', name: 'Masajes con piedras calientes' },
-        { id: 'circulatorios', name: 'Circulatorios' }
-      ]
-    },
-    {
-      id: 'belleza',
-      title: 'Belleza',
-      icon: 'bi-stars',
-      bgColor: 'bg-light',
-      services: [
-        { id: 'lifting-pestana', name: 'Lifting de pestaña' },
-        { id: 'depilacion-facial', name: 'Depilación facial' },
-        { id: 'manos-pies', name: 'Belleza de manos y pies' }
-      ]
-    },
-    {
-      id: 'faciales',
-      title: 'Tratamientos Faciales',
-      icon: 'bi-emoji-smile',
-      bgColor: 'bg-white',
-      services: [
-        { id: 'punta-diamante', name: 'Punta de Diamante: Microexfoliación', description: 'Técnica de microexfoliación para renovar la piel' },
-        { id: 'limpieza-hidratacion', name: 'Limpieza profunda + Hidratación' },
-        { id: 'crio-frecuencia', name: 'Crio frecuencia facial', description: 'Produce el "SHOCK TERMICO" logrando resultados instantáneos de efecto lifting' }
-      ]
-    },
-    {
-      id: 'corporales',
-      title: 'Tratamientos Corporales',
-      icon: 'bi-person',
-      bgColor: 'bg-light',
-      services: [
-        { id: 'velaslim', name: 'VelaSlim', description: 'Reducción de la circunferencia corporal y la celulitis' },
-        { id: 'dermohealth', name: 'DermoHealth', description: 'Moviliza los distintos tejidos de la piel y estimula la microcirculación, generando un drenaje linfático' },
-        { id: 'criofrecuencia', name: 'Criofrecuencia', description: 'Produce un efecto de lifting instantáneo' },
-        { id: 'ultracavitacion', name: 'Ultracavitación', description: 'Técnica reductora' }
-      ]
-    }
-  ];
-
-  groupServices: ServiceCategory[] = [
-    {
-      id: 'grupales',
-      title: 'Servicios Grupales',
-      icon: 'bi-people-fill',
-      bgColor: 'bg-white',
-      services: [
-        { id: 'hidromasajes', name: 'Hidromasajes' },
-        { id: 'yoga', name: 'Yoga' }
-      ]
-    }
-  ];
+export class ServicesComponent implements OnInit {
+  
+  individualServices: CategoryGroup[] = [];
+  groupServices: CategoryGroup[] = [];
+  loading = false;
+  error = '';
+  
+  // Adaptador para mapear las categorías del backend a las categorías del frontend
+  categoryAdapter: {[key: string]: string} = {
+    'Masajes': 'MASSAGE',
+    'Tratamientos Faciales': 'FACIAL_TREATMENT',
+    'Tratamientos Corporales': 'BODY_TREATMENT',
+    'Belleza': 'BEAUTY',
+    'Grupales': 'GROUP'
+  };
+  
+  // Mapeo de iconos para categorías
+  categoryIconMap: {[key: string]: string} = {
+    'MASSAGE': 'bi-hand-index-thumb',
+    'FACIAL_TREATMENT': 'bi-emoji-smile',
+    'BODY_TREATMENT': 'bi-droplet',
+    'BEAUTY': 'bi-stars',
+    'GROUP': 'bi-people'
+  };
+  
+  // Mapeo de colores de fondo para categorías
+  categoryBgColorMap: {[key: string]: string} = {
+    'MASSAGE': 'bg-white',
+    'FACIAL_TREATMENT': 'bg-light',
+    'BODY_TREATMENT': 'bg-white',
+    'BEAUTY': 'bg-light',
+    'GROUP': 'bg-white'
+  };
+  
+  // Mapeo de nombres legibles para categorías
+  categoryTitleMap: {[key: string]: string} = {
+    'MASSAGE': 'Masajes',
+    'FACIAL_TREATMENT': 'Tratamientos Faciales',
+    'BODY_TREATMENT': 'Tratamientos Corporales',
+    'BEAUTY': 'Belleza',
+    'GROUP': 'Servicios Grupales'
+  };
+  
+  constructor(private serviceService: ServiceService) {}
+  
+  ngOnInit(): void {
+    this.loadServices();
+  }
+  
+  loadServices(): void {
+    this.loading = true;
+    this.error = '';
+    
+    console.log('Iniciando petición de servicios...');
+    
+    this.serviceService.getServices().subscribe(
+      response => {
+        console.log('Respuesta completa del API:', response);
+        console.log('Estado de éxito:', response.success);
+        console.log('Datos recibidos:', response.data);
+        
+        if (response.success && Array.isArray(response.data)) {
+          console.log('Cantidad de servicios recibidos:', response.data.length);
+          console.log('Primer servicio de ejemplo:', response.data[0]);
+          this.organizeServicesByCategory(response.data);
+        } else {
+          console.error('Respuesta inválida o sin servicios:', response);
+          this.error = 'No se pudieron cargar los servicios.';
+        }
+        this.loading = false;
+      },
+      error => {
+        console.error('Error al cargar servicios:', error);
+        this.error = 'Error al cargar los servicios. Por favor, intente de nuevo más tarde.';
+        this.loading = false;
+      }
+    );
+  }
+  
+  organizeServicesByCategory(services: Service[]): void {
+    console.log('Organizando servicios por categoría, total de servicios:', services.length);
+    
+    // Reiniciar arreglos
+    this.individualServices = [];
+    this.groupServices = [];
+    
+    // Agrupar por categoría
+    const servicesByCategory: {[category: string]: Service[]} = {};
+    
+    // Separar servicios individuales y grupales
+    services.forEach(service => {
+      console.log('Procesando servicio:', service.id, service.name, 'Categoría:', service.category, 'Grupal:', service.isGroupService);
+      
+      if (service.isGroupService) {
+        console.log('Servicio grupal detectado:', service.name);
+        if (!servicesByCategory['GROUP']) {
+          servicesByCategory['GROUP'] = [];
+        }
+        servicesByCategory['GROUP'].push(service);
+      } else {
+        // Para servicios individuales, agrupar por categoría
+        console.log('Servicio individual detectado, categoría:', service.category);
+        
+        // Adaptar la categoría del backend al formato que espera el frontend
+        const adaptedCategory = this.categoryAdapter[service.category] || service.category;
+        console.log('Categoría adaptada:', service.category, '->', adaptedCategory);
+        
+        if (!servicesByCategory[adaptedCategory]) {
+          servicesByCategory[adaptedCategory] = [];
+          console.log('Creando nueva categoría:', adaptedCategory);
+        }
+        servicesByCategory[adaptedCategory].push(service);
+      }
+    });
+    
+    // Crear grupos de categorías para la visualización
+    console.log('Categorías encontradas:', Object.keys(servicesByCategory));
+    
+    Object.keys(servicesByCategory).forEach(category => {
+      console.log('Procesando categoría:', category, 'con', servicesByCategory[category].length, 'servicios');
+      
+      const group: CategoryGroup = {
+        id: category.toLowerCase(),
+        title: this.categoryTitleMap[category] || category,
+        icon: this.categoryIconMap[category] || 'bi-question-circle',
+        services: servicesByCategory[category],
+        bgColor: this.categoryBgColorMap[category] || 'bg-white'
+      };
+      
+      console.log('Grupo creado:', group.title, 'con', group.services.length, 'servicios');
+      
+      if (category === 'GROUP') {
+        this.groupServices.push(group);
+        console.log('Añadido a servicios grupales, total ahora:', this.groupServices.length);
+      } else {
+        this.individualServices.push(group);
+        console.log('Añadido a servicios individuales, total ahora:', this.individualServices.length);
+      }
+    });
+    
+    console.log('Organización final:');
+    console.log('Servicios individuales por categoría:', this.individualServices);
+    console.log('Servicios grupales:', this.groupServices);
+  }
 }
